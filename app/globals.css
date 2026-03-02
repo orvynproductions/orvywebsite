@@ -1,26 +1,191 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  body {
+    font-family: var(--font-sans), 'Poppins', sans-serif;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif), 'Cormorant Garamond', serif;
+    font-weight: 400;
+  }
+
+  .font-serif {
+    font-family: var(--font-serif), 'Cormorant Garamond', serif;
+  }
+
+  .font-sans {
+    font-family: var(--font-sans), 'Poppins', sans-serif;
+  }
+
+  .font-script {
+    font-family: var(--font-script), 'Qwitcher Grypen', cursive;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Button styles */
+  .btn-primary {
+    @apply px-8 py-3 text-sm font-medium tracking-wide transition-all duration-300 bg-gold-500 text-white rounded;
+  }
+
+  .btn-primary:hover {
+    @apply bg-gold-600;
+    transform: translateY(-2px);
+  }
+
+  .btn-dark {
+    @apply px-8 py-3 text-sm font-medium tracking-wide transition-all duration-300 bg-gray-900 text-white border border-gold-500 rounded;
+  }
+
+  .btn-dark:hover {
+    @apply bg-gold-500;
+  }
+
+  /* Title with decorative bar */
+  .has-bar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .has-bar::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: theme('colors.gold.500');
+  }
+
+  /* Fade-up animation */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 600ms ease-out, transform 600ms ease-out;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Slide-in-left animation */
+  .slide-in-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+  }
+
+  .slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Slide-in-right animation */
+  .slide-in-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+  }
+
+  .slide-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Scale-in animation */
+  .scale-in {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 600ms ease-out, transform 600ms ease-out;
+  }
+
+  .scale-in.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Ken Burns effect */
+  @keyframes kenburns {
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    50% {
+      transform: scale(1.08) translate(-1%, -1%);
+    }
+    100% {
+      transform: scale(1) translate(0, 0);
+    }
+  }
+
+  .kenburns {
+    animation: kenburns 12s ease-in-out infinite;
+  }
+
+  /* Hero background - subtle slow zoom breathe */
+  @keyframes hero-breathe {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.04);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .hero-kenburns {
+    animation: hero-breathe 20s ease-in-out infinite;
+  }
+
+  /* Marquee animation */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .marquee {
+    animation: marquee 40s linear infinite;
+  }
+
+  /* Section padding */
+  .section-padding {
+    @apply py-20 md:py-32;
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 md:px-8;
+  }
+}
+
+@layer utilities {
+  /* Text gradient */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, theme('colors.gold.400'), theme('colors.gold.600'));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Background overlays */
+  .bg-overlay-dark {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.8));
+  }
+
+  .bg-overlay-light {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+  }
 }
