@@ -353,7 +353,7 @@ export default function CheckoutPage() {
                 ) : (
                   <>
                     <Truck className="w-5 h-5" />
-                    {checkoutConfig.placeOrderText} - ${finalTotal.toFixed(2)}
+                    {checkoutConfig.placeOrderText} - ₹{finalTotal.toFixed(2)}
                   </>
                 )}
               </button>
@@ -381,7 +381,7 @@ export default function CheckoutPage() {
                       <p className="text-white/50 text-xs">{item.unit} × {item.quantity}</p>
                     </div>
                     <span className="text-gold-500 font-medium">
-                      ${(item.price * item.quantity).toFixed(2)}
+                      ₹{(item.price * item.quantity).toFixed(2)}
                     </span>
                   </div>
                 ))}
@@ -390,7 +390,7 @@ export default function CheckoutPage() {
               <div className="border-t border-white/10 pt-4 space-y-2">
                 <div className="flex justify-between text-white/60 text-sm">
                   <span>{cartConfig.subtotalText}</span>
-                  <span>${totalPrice.toFixed(2)}</span>
+                  <span>₹{totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-white/60 text-sm">
                   <span>{cartConfig.shippingText}</span>
@@ -398,7 +398,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between text-white text-lg font-semibold pt-2 border-t border-white/10">
                   <span>{cartConfig.totalText}</span>
-                  <span className="text-gold-500">${finalTotal.toFixed(2)}</span>
+                  <span className="text-gold-500">₹{finalTotal.toFixed(2)}</span>
                 </div>
               </div>
             </div>
