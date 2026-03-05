@@ -145,7 +145,7 @@ export default function ShopPage() {
                     <p className="text-white/50 text-sm">{product.unit}</p>
                   </div>
                   <span className="text-gold-500 font-semibold">
-                    ₹{product.price}
+                    <span className="text-xs">₹</span>{product.price}
                   </span>
                 </div>
 

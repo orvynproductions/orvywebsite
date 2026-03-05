@@ -31,6 +31,11 @@ export const metadata: Metadata = {
   title: siteConfig.title,
   description: siteConfig.description,
   keywords: siteConfig.keywords,
+
+  verification: {
+    google: "ODHv9ELXkk13LjALCbXLDQTIIbR_rwgHBLULAXquRug",
+  },
+
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,
