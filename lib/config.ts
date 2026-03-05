@@ -15,12 +15,14 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  title: "Orvyn Productions | Fresh Organic Microgreens Delivered",
-  description: "Premium organic microgreens grown locally. Nutrient-dense, flavorful, and delivered fresh to your door. Perfect for restaurants, home chefs, and health enthusiasts.",
+  title: "Orvyn Productions | Fresh Organic Microgreens Delivered in Bangalore",
+  description:
+    "Orvyn Productions grows premium organic microgreens using sustainable farming. Fresh, nutrient-dense greens delivered locally for homes, restaurants, and health enthusiasts.",
   language: "en",
-  keywords: "microgreens, organic, fresh produce, healthy eating, urban farming, sustainable agriculture, wheatgrass, pea shoots, sunflower shoots",
+  keywords:
+    "Orvyn Productions, Orvyn Microgreens, orvyn, ,Orvyn, Microgreens in Bangalore, organic microgreens, fresh microgreens, microgreens India, wheatgrass, sunflower shoots, pea shoots, radish microgreens, broccoli microgreens, basil microgreens, mustard microgreens, healthy superfoods, Wheatgrass, Sunflower Shoots, Pea Shoots, Radish Microgreens, Broccoli Microgreens, mustard Microgreens, Basil Microgreens, fenugreek ,Methi, Red Cabbage, Kale Microgreens, Amaranth, Coriander Microgreens",
   ogImage: "/images/og-image.jpg",
-  canonical: "https://greensprout.microgreens",
+  canonical: "https://orvywebsite.vercel.app/"
 };
 
 // -----------------------------------------------------------------------------
@@ -42,7 +44,7 @@ export interface NavigationConfig {
 
 export const navigationConfig: NavigationConfig = {
   brandName: "Orvyn Productions",
-  brandSubname: "Microgreens",
+  brandSubname: "Premium Organic Microgreens",
   tagline: "Fresh • Organic • Local",
   navLinks: [
     { name: "Home", href: "/", icon: "Home" },
@@ -80,10 +82,10 @@ export const heroConfig: HeroConfig = {
   ctaButtonText: "Explore Our Greens",
   ctaTarget: "#products",
   stats: [
-    { value: 40, suffix: "+", label: "Varieties Grown" },
+    { value: 15, suffix: "+", label: "Varieties Grown" },
     { value: 100, suffix: "%", label: "Organic" },
     { value: 24, suffix: "h", label: "Farm to Table" },
-    { value: 5000, suffix: "+", label: "Happy Customers" },
+    { value: 100, suffix: "+", label: "Happy Customers" },
   ],
   decorativeText: "SUSTAINABLE • ORGANIC • FRESH",
   backgroundImage: "/images/hero-microgreens.jpg",
@@ -137,7 +139,7 @@ export const productShowcaseConfig: ProductShowcaseConfig = {
       id: "pea-shoots",
       name: "Pea Shoots",
       subtitle: "Sweet & Crisp",
-      price: "$8.00",
+      price: "₹8.00",
       image: "/images/pea-shoots.png",
       filter: "",
       glowColor: "bg-green-500/20",
@@ -151,7 +153,7 @@ export const productShowcaseConfig: ProductShowcaseConfig = {
       id: "sunflower-shoots",
       name: "Sunflower Shoots",
       subtitle: "Nutty & Crunchy",
-      price: "$9.00",
+      price: "₹9.00",
       image: "/images/sunflower-shoots.png",
       filter: "brightness(1.1) sepia(0.1)",
       glowColor: "bg-yellow-500/20",
@@ -165,7 +167,7 @@ export const productShowcaseConfig: ProductShowcaseConfig = {
       id: "radish-microgreens",
       name: "Radish Microgreens",
       subtitle: "Peppery & Bold",
-      price: "$7.50",
+      price: "₹7.50",
       image: "/images/radish-microgreens.png",
       filter: "brightness(1.15) sepia(0.05) hue-rotate(-10deg)",
       glowColor: "bg-red-500/20",
@@ -179,7 +181,7 @@ export const productShowcaseConfig: ProductShowcaseConfig = {
       id: "broccoli-microgreens",
       name: "Broccoli Microgreens",
       subtitle: "Mild & Nutritious",
-      price: "$8.50",
+      price: "₹8.50",
       image: "/images/broccoli-microgreens.png",
       filter: "brightness(1.05) sepia(0.02)",
       glowColor: "bg-emerald-500/20",
@@ -193,7 +195,7 @@ export const productShowcaseConfig: ProductShowcaseConfig = {
       id: "wheatgrass",
       name: "Wheatgrass",
       subtitle: "Earthy & Energizing",
-      price: "$6.00",
+      price: "₹6.00",
       image: "/images/wheatgrass.png",
       filter: "brightness(1.2) sepia(0.1) hue-rotate(20deg)",
       glowColor: "bg-lime-500/20",
@@ -207,7 +209,7 @@ export const productShowcaseConfig: ProductShowcaseConfig = {
       id: "micro-mix",
       name: "Signature Mix",
       subtitle: "Chef's Selection",
-      price: "$12.00",
+      price: "₹12.00",
       image: "/images/micro-mix.png",
       filter: "brightness(1.1)",
       glowColor: "bg-amber-500/20",
@@ -699,7 +701,6 @@ export const footerConfig: FooterConfig = {
         { name: "Wholesale", href: "/#contact" },
         { name: "Restaurant Partners", href: "/#contact" },
         { name: "Catering", href: "/#contact" },
-        { name: "Gift Cards", href: "/shop" },
       ],
     },
   ],
