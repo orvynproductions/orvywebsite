@@ -15,12 +15,12 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  title: "Orvyn Productions | Fresh Organic Microgreens Delivered in Bangalore",
+  title: "Orvyn Productions | Premium Organic Microgreens in Bangalore",
   description:
-    "Orvyn Productions grows premium organic microgreens using sustainable farming. Fresh, nutrient-dense greens delivered locally for homes, restaurants, and health enthusiasts.",
+    "Orvyn Productions grows premium organic microgreens in Bangalore. Fresh, nutrient-dense superfoods delivered to homes, restaurants, and health-conscious customers.",
   language: "en",
   keywords:
-    "Orvyn Productions, Orvyn Microgreens, orvyn, ,Orvyn, Microgreens in Bangalore, organic microgreens, fresh microgreens, microgreens India, wheatgrass, sunflower shoots, pea shoots, radish microgreens, broccoli microgreens, basil microgreens, mustard microgreens, healthy superfoods, Wheatgrass, Sunflower Shoots, Pea Shoots, Radish Microgreens, Broccoli Microgreens, mustard Microgreens, Basil Microgreens, fenugreek ,Methi, Red Cabbage, Kale Microgreens, Amaranth, Coriander Microgreens",
+    "Orvyn Productions, Orvyn Microgreens, microgreens Bangalore, organic microgreens Bangalore, buy microgreens Bangalore, fresh microgreens India, wheatgrass, sunflower microgreens, pea shoots, radish microgreens, broccoli microgreens, basil microgreens, mustard microgreens, kale microgreens, amaranth microgreens, coriander microgreens, fenugreek microgreens",
   ogImage: "/images/og-image.jpg",
   canonical: "https://orvywebsite.vercel.app/"
 };

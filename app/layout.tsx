@@ -32,6 +32,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: siteConfig.keywords,
 
+  metadataBase: new URL("https://orvywebsite.vercel.app"),
+
   verification: {
     google: "ODHv9ELXkk13LjALCbXLDQTIIbR_rwgHBLULAXquRug",
   },
@@ -39,7 +41,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,
+    url: "https://orvywebsite.vercel.app",
+    siteName: "Orvyn Productions",
     images: [siteConfig.ogImage],
+    type: "website",
   },
 };
 
@@ -58,6 +63,25 @@ export default function RootLayout({
             </CartProvider>
           </OrdersProvider>
         </AuthProvider>
+        <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FoodEstablishment",
+                "name": "Orvyn Productions",
+                "image": "https://orvywebsite.vercel.app/images/og-image.jpg",
+                "url": "https://orvywebsite.vercel.app/",
+                "description": "Premium organic microgreens grown locally and delivered fresh in Bangalore.",
+                "servesCuisine": "Microgreens",
+                "areaServed": "Bangalore",
+                "brand": {
+                "@type": "Brand",
+                "name": "Orvyn Productions"
+                }
+                 })
+                   }}
+                 />
       </body>
     </html>
   );
