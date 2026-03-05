@@ -39,7 +39,34 @@ export async function POST(req: Request){
   // =====================
   // Save Order to Database
   // =====================
-  await supabase.from("orders").insert([data]);
+  const { data: dbData, error: dbError } = await supabase
+  .from("orders")
+  .insert([
+    {
+      order_number: orderNumber,
+      customer_name: data.customer_name,
+      email: data.email,
+      phone: data.phone,
+      address: data.address,
+      city: data.city,
+      state: data.state,
+      zip: data.zip,
+      delivery_date: data.delivery_date,
+      special_instructions: data.special_instructions || null,
+      items: data.items,
+      subtotal: data.subtotal,
+      shipping: data.shipping,
+      total: data.total
+    }
+  ]);
+
+if (dbError) {
+  console.error("Supabase order insert error:", dbError);
+  return NextResponse.json(
+    { success: false, error: "Order DB insert failed" },
+    { status: 500 }
+  );
+}
 
   // =====================
   // Email Setup
