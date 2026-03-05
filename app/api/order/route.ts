@@ -12,34 +12,42 @@ export async function POST(req: Request){
   const data = await req.json();
 
   // =====================
-  // Generate Unique Order Number
-  // Format: O[sequence][DD][MM][YY]
+// Generate Order Number
+// Format: ORVYYMMDD###
+ // =====================
+
+const today = new Date();
+
+const day = String(today.getDate()).padStart(2,"0");
+const month = String(today.getMonth()+1).padStart(2,"0");
+const year = String(today.getFullYear()).slice(-2);
+
+const lastOrder = await supabase
+  .from("orders")
+  .select("order_number")
+  .order("created_at", { ascending:false })
+  .limit(1)
+  .single();
+
+let seq = 1;
+
+if(lastOrder.data?.order_number){
+
+  const lastSeq = lastOrder.data.order_number.slice(-3);
+  seq = parseInt(lastSeq) + 1;
+
+}
+
+const orderNumber =
+`ORV${year}${month}${day}${String(seq).padStart(3,"0")}`;
+
+data.order_number = orderNumber;
+
   // =====================
-  const today = new Date();
-  const day = String(today.getDate()).padStart(2, "0");
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const year = String(today.getFullYear()).slice(-2);
+// Save Order to Database
+// =====================
 
-  const lastOrder = await supabase
-    .from("orders")
-    .select("order_number")
-    .order("id", { ascending: false })
-    .limit(1)
-    .single();
-
-  let lastSeq = 102;
-  if (lastOrder.data?.order_number) {
-    const lastSeqStr = lastOrder.data.order_number.slice(1, 4);
-    lastSeq = parseInt(lastSeqStr) + 1;
-  }
-
-  const orderNumber = `O${String(lastSeq).padStart(3, "0")}${day}${month}${year}`;
-  data.order_number = orderNumber;
-
-  // =====================
-  // Save Order to Database
-  // =====================
-  const { data: dbData, error: dbError } = await supabase
+const { data: dbData, error: dbError } = await supabase
   .from("orders")
   .insert([
     {
@@ -58,16 +66,23 @@ export async function POST(req: Request){
       shipping: data.shipping,
       total: data.total
     }
-  ]);
+  ])
+  .select()
+  .single();
 
-if (dbError) {
+if (dbError || !dbData) {
+
   console.error("Supabase order insert error:", dbError);
-  return NextResponse.json(
-    { success: false, error: "Order DB insert failed" },
-    { status: 500 }
-  );
-}
 
+  return NextResponse.json(
+    {
+      success:false,
+      message:"Order could not be placed. Please try again."
+    },
+    { status:500 }
+  );
+
+}
   // =====================
   // Email Setup
   // =====================
