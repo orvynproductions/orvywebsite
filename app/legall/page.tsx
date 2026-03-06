@@ -42,14 +42,14 @@ By using our website or services, you agree to the collection and use of informa
             Terms of Service
           </h2>
           <p className="text-white/60 leading-relaxed space-y-3">
-By accessing or purchasing from Orvyn Microgreens, you agree to the terms and conditions outlined here. Our products are grown and harvested with care to ensure freshness, quality, and nutritional value.
+         By accessing or purchasing from Orvyn Microgreens, you agree to the terms and conditions outlined here. Our products are grown and harvested with care to ensure freshness, quality, and nutritional value.
 
-Orvyn Productions reserves the right to update product availability, pricing, or delivery schedules based on harvest cycles and seasonal factors. Since microgreens are fresh agricultural products, availability may occasionally vary depending on growing conditions.
+        Orvyn Productions reserves the right to update product availability, pricing, or delivery schedules based on harvest cycles and seasonal factors. Since microgreens are fresh agricultural products, availability may occasionally vary depending on growing conditions.
 
-Customers are expected to provide accurate information when placing orders to ensure smooth delivery and communication. We strive to maintain high standards in product quality, packaging, and customer service.
+        Customers are expected to provide accurate information when placing orders to ensure smooth delivery and communication. We strive to maintain high standards in product quality, packaging, and customer service.
 
-We may update these terms occasionally to reflect improvements in our services or operational practices.
-</p>
+        We may update these terms occasionally to reflect improvements in our services or operational practices.
+        </p>
         </section>
 
         {/* Privacy Policy */}
@@ -58,14 +58,14 @@ We may update these terms occasionally to reflect improvements in our services o
             Shipping Policy
           </h2>
           <p className="text-white/60 leading-relaxed space-y-3">
-At Orvyn Microgreens, freshness is our priority. Our microgreens are harvested close to delivery to ensure maximum quality, flavor, and nutritional value.
+          At Orvyn Microgreens, freshness is our priority. Our microgreens are harvested close to delivery to ensure maximum quality, flavor, and nutritional value.
 
-Because our products are grown naturally, deliveries are scheduled based on harvest readiness rather than fixed warehouse stock. Orders are typically delivered shortly after harvest, ensuring that customers receive the freshest produce possible.
+          Because our products are grown naturally, deliveries are scheduled based on harvest readiness rather than fixed warehouse stock. Orders are typically delivered shortly after harvest, ensuring that customers receive the freshest produce possible.
 
-Delivery timing may vary slightly depending on crop readiness and order volume. Our team will always aim to deliver your order at the earliest possible time once the harvest is ready.
+          Delivery timing may vary slightly depending on crop readiness and order volume. Our team will always aim to deliver your order at the earliest possible time once the harvest is ready.
 
-If there are any changes or delays due to harvest conditions, customers will be informed in advance. We appreciate your understanding as we focus on delivering fresh, high-quality microgreens directly from harvest to your doorstep.
-</p>
+        If there are any changes or delays due to harvest conditions, customers will be informed in advance. We appreciate your understanding as we focus on delivering fresh, high-quality microgreens directly from harvest to your doorstep.
+        </p>
         </section>
 
         {/* Shipping Policy */}
@@ -79,10 +79,10 @@ If there are any changes or delays due to harvest conditions, customers will be 
             days and availability may vary depending on crop readiness.
           </p>
         </section>
-<p className="text-white/40 text-sm mt-8">
-The information on this website is provided for general informational purposes. 
-Policies may be updated periodically to reflect operational improvements.
-</p>
+       <p className="text-white/40 text-sm mt-8">
+       The information on this website is provided for general informational purposes. 
+       Policies may be updated periodically to reflect operational improvements.
+    </p>
       </div>
     </div>
   );
