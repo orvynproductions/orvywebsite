@@ -729,7 +729,7 @@ export const contactFormConfig: ContactFormConfig = {
     {
       icon: "MapPin",
       label: "Farm Location",
-      value: "Monte Tabor Rd, BDS Nagar",
+      value: "BDS Nagar, K.Narayanpura",
       subtext: "Bangalore, KA 560077",
     },
     {
@@ -811,7 +811,10 @@ export interface FooterConfig {
   newsletterErrorText: string;
   newsletterEndpoint: string;
   copyrightText: string;
-  legalLinks: string[];
+  legalLinks: {
+  name: string;
+  href: string;
+}[];
   backToTopText: string;
 }
 
@@ -820,9 +823,10 @@ export const footerConfig: FooterConfig = {
   tagline: "Productions",
   description: "Fresh, organic microgreens grown with care in Portland, Oregon. Delivered to your door within 24 hours of harvest.",
   socialLinks: [
-    { icon: "Instagram", label: "Instagram", href: "https://instagram.com/greensprout" },
-    { icon: "Facebook", label: "Facebook", href: "https://facebook.com/greensprout" },
-    { icon: "Twitter", label: "Twitter", href: "https://twitter.com/greensprout" },
+    { icon: "Instagram", label: "Instagram", href: "https://www.instagram.com/orvynproductions/" },
+    { icon: "Facebook", label: "Facebook", href: "https://www.facebook.com/people/ORVYN-Productions/61584461464315/" },
+    { icon: "Twitter", label: "Twitter", href: "https://x.com/OrvynProd" },
+    { icon: "Linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/orvyn-productions/" },
   ],
   linkGroups: [
     {
@@ -847,7 +851,7 @@ export const footerConfig: FooterConfig = {
   contactItems: [
     {
       icon: "MapPin",
-      text: "1234 Green Valley Rd, Portland, OR",
+      text: "BDS Nagar, K.Narayanpura, Bangalore",
       href: "https://www.google.com/maps/place/ORVYN+PRODUCTIONS/@13.0674791,77.6449708,17z/data=!3m1!4b1!4m6!3m5!1s0x3bae19c6ad2230a3:0x8fc386979c049ca9!8m2!3d13.0674791!4d77.6449708!16s%2Fg%2F11yprbw5j9?entry=ttu&g_ep=EgoyMDI2MDIyNS4wIKXMDSoASAFQAw%3D%3D",
     },
     {
@@ -869,7 +873,11 @@ export const footerConfig: FooterConfig = {
   newsletterErrorText: "Please try again.",
   newsletterEndpoint: "/api/newsletter",
   copyrightText: "© 2026 Orvyn Productions. All rights reserved.",
-  legalLinks: ["Privacy Policy", "Terms of Service", "Shipping Policy"],
+  legalLinks: [
+  { name: "Privacy Policy", href: "/legal" },
+  { name: "Terms of Service", href: "/legal" },
+  { name: "Shipping Policy", href: "/legal" }
+],
   backToTopText: "Back to top",
 };
 

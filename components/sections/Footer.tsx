@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Instagram, Facebook, Twitter, MapPin, Phone, Mail, ArrowUp, Send } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Linkedin, MapPin, Phone, Mail, ArrowUp, Send } from 'lucide-react';
 import { footerConfig } from '@/lib/config';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Instagram, Facebook, Twitter, MapPin, Phone, Mail,
+  Instagram, Facebook, Twitter, Linkedin, MapPin, Phone, Mail,
 };
 
 export default function Footer() {
@@ -161,17 +161,19 @@ const handleSubscribe = async (e: React.FormEvent) => {
             {footerConfig.copyrightText}
           </p>
 
-          <div className="flex items-center gap-6">
-            {footerConfig.legalLinks.map((link) => (
-              <Link
-                key={link}
-                href="#"
-                className="text-white/50 text-sm hover:text-gold-500 transition-colors"
-              >
-                {link}
-              </Link>
-            ))}
-          </div>
+         <div className="flex items-center gap-6">
+         {footerConfig.legalLinks.map((link) => (
+        <Link
+      key={link.name}
+      href={link.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-white/50 text-sm hover:text-gold-500 transition-colors"
+       >
+          {link.name}
+          </Link>
+           ))}
+        </div>
 
           <button
             onClick={scrollToTop}
