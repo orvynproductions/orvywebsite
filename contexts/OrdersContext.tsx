@@ -21,7 +21,7 @@ export interface Order {
   city: string;
   state: string;
   zip: string;
-  deliveryDate: string;
+  //deliveryDate: string;
   specialInstructions: string;
   items: OrderItem[];
   subtotal: number;
@@ -53,7 +53,7 @@ const SAMPLE_ORDERS: Order[] = [
     city: 'Portland',
     state: 'Oregon',
     zip: '97201',
-    deliveryDate: '2025-02-21',
+    //deliveryDate: '2025-02-21',
     specialInstructions: 'Leave at front door',
     items: [
       { id: 'pea-shoots-4oz', name: 'Pea Shoots', price: 8.00, quantity: 2, unit: '4 oz' },
@@ -74,7 +74,7 @@ const SAMPLE_ORDERS: Order[] = [
     city: 'Portland',
     state: 'Oregon',
     zip: '97202',
-    deliveryDate: '2025-02-22',
+    //deliveryDate: '2025-02-22',
     specialInstructions: '',
     items: [
       { id: 'signature-mix-4oz', name: 'Signature Mix', price: 12.00, quantity: 3, unit: '4 oz' },
@@ -95,7 +95,7 @@ const SAMPLE_ORDERS: Order[] = [
     city: 'Portland',
     state: 'Oregon',
     zip: '97203',
-    deliveryDate: '2025-02-20',
+    //deliveryDate: '2025-02-20',
     specialInstructions: 'Call upon arrival',
     items: [
       { id: 'radish-microgreens-3oz', name: 'Radish Microgreens', price: 7.50, quantity: 2, unit: '3 oz' },
@@ -117,7 +117,7 @@ const SAMPLE_ORDERS: Order[] = [
     city: 'Portland',
     state: 'Oregon',
     zip: '97204',
-    deliveryDate: '2025-02-19',
+    //deliveryDate: '2025-02-19',
     specialInstructions: '',
     items: [
       { id: 'mustard-microgreens-3oz', name: 'Mustard Microgreens', price: 7.00, quantity: 1, unit: '3 oz' },

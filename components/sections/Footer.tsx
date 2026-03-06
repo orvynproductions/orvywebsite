@@ -11,15 +11,36 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 export default function Footer() {
   const [email, setEmail] = useState('');
-  const [isSubscribed, setIsSubscribed] = useState(false);
+const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
+const handleSubscribe = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!email) return;
+
+  try {
+    const res = await fetch("/api/newsletter", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+
+    if (data.error) {
+      alert(data.error);
+    } else {
       setIsSubscribed(true);
-      setEmail('');
     }
-  };
+
+  } catch (error) {
+    alert("Something went wrong. Please try again.");
+  }
+
+  setEmail('');
+};
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

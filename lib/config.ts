@@ -867,7 +867,7 @@ export const footerConfig: FooterConfig = {
   newsletterButtonText: "Subscribe",
   newsletterSuccessText: "Thank you for subscribing!",
   newsletterErrorText: "Please try again.",
-  newsletterEndpoint: "https://formspree.io/f/YOUR_NEWSLETTER_ID",
+  newsletterEndpoint: "/api/newsletter",
   copyrightText: "© 2026 Orvyn Productions. All rights reserved.",
   legalLinks: ["Privacy Policy", "Terms of Service", "Shipping Policy"],
   backToTopText: "Back to top",
@@ -920,6 +920,61 @@ export const shopConfig: ShopConfig = {
       category: "Shoots",
       inStock: true,
       nutritionHighlights: ["High Protein", "Vitamin C", "Folic Acid"],
+    },
+    {
+      id: "sunflower-shoots-4oz",
+      name: "Sunflower Shoots",
+      description: "Nutty, crunchy shoots with complete protein",
+      price: 9.00,
+      unit: "4 oz",
+      image: "/images/sunflower-shoots.png",
+      category: "Shoots",
+      inStock: true,
+      nutritionHighlights: ["Complete Protein", "Vitamin E", "Amino Acids"],
+    },
+    {
+      id: "sunflower-shoots-4oz",
+      name: "Sunflower Shoots",
+      description: "Nutty, crunchy shoots with complete protein",
+      price: 9.00,
+      unit: "4 oz",
+      image: "/images/sunflower-shoots.png",
+      category: "Shoots",
+      inStock: true,
+      nutritionHighlights: ["Complete Protein", "Vitamin E", "Amino Acids"],
+    },
+    {
+      id: "sunflower-shoots-4oz",
+      name: "Sunflower Shoots",
+      description: "Nutty, crunchy shoots with complete protein",
+      price: 9.00,
+      unit: "4 oz",
+      image: "/images/sunflower-shoots.png",
+      category: "Shoots",
+      inStock: true,
+      nutritionHighlights: ["Complete Protein", "Vitamin E", "Amino Acids"],
+    },
+    {
+      id: "sunflower-shoots-4oz",
+      name: "Sunflower Shoots",
+      description: "Nutty, crunchy shoots with complete protein",
+      price: 9.00,
+      unit: "4 oz",
+      image: "/images/sunflower-shoots.png",
+      category: "Shoots",
+      inStock: true,
+      nutritionHighlights: ["Complete Protein", "Vitamin E", "Amino Acids"],
+    },
+    {
+      id: "sunflower-shoots-4oz",
+      name: "Sunflower Shoots",
+      description: "Nutty, crunchy shoots with complete protein",
+      price: 9.00,
+      unit: "4 oz",
+      image: "/images/sunflower-shoots.png",
+      category: "Shoots",
+      inStock: true,
+      nutritionHighlights: ["Complete Protein", "Vitamin E", "Amino Acids"],
     },
     {
       id: "sunflower-shoots-4oz",
@@ -988,6 +1043,39 @@ export const shopConfig: ShopConfig = {
       nutritionHighlights: ["Vitamin K", "Vitamin A", "Antioxidants"],
     },
     {
+      id: "sunflower-shoots-4oz",
+      name: "Sunflower Shoots",
+      description: "Nutty, crunchy shoots with complete protein",
+      price: 9.00,
+      unit: "4 oz",
+      image: "/images/sunflower-shoots.png",
+      category: "Shoots",
+      inStock: true,
+      nutritionHighlights: ["Complete Protein", "Vitamin E", "Amino Acids"],
+    },
+    {
+      id: "sunflower-shoots-4oz",
+      name: "Sunflower Shoots",
+      description: "Nutty, crunchy shoots with complete protein",
+      price: 9.00,
+      unit: "4 oz",
+      image: "/images/sunflower-shoots.png",
+      category: "Shoots",
+      inStock: true,
+      nutritionHighlights: ["Complete Protein", "Vitamin E", "Amino Acids"],
+    },
+    {
+      id: "sunflower-shoots-4oz",
+      name: "Sunflower Shoots",
+      description: "Nutty, crunchy shoots with complete protein",
+      price: 9.00,
+      unit: "4 oz",
+      image: "/images/sunflower-shoots.png",
+      category: "Shoots",
+      inStock: true,
+      nutritionHighlights: ["Complete Protein", "Vitamin E", "Amino Acids"],
+    },
+    {
       id: "mustard-microgreens-3oz",
       name: "Mustard Microgreens",
       description: "Spicy, horseradish-like kick",
@@ -1029,9 +1117,9 @@ export const cartConfig: CartConfig = {
   checkoutText: "Proceed to Checkout",
   removeText: "Remove",
   quantityText: "Quantity",
-  freeShippingThreshold: 35,
-  freeShippingText: "Free shipping on orders over $35",
-  shippingCost: 5.99,
+  freeShippingThreshold: 0,
+  freeShippingText: "Free shipping",
+  shippingCost: 0,
 };
 
 // -----------------------------------------------------------------------------
@@ -1056,7 +1144,7 @@ export interface CheckoutConfig {
     city: string;
     state: string;
     zip: string;
-    deliveryDate: string;
+    //deliveryDate: string;
     specialInstructions: string;
   };
   placeholders: {
@@ -1074,7 +1162,7 @@ export interface CheckoutConfig {
 
 export const checkoutConfig: CheckoutConfig = {
   title: "Checkout",
-  subtitle: "Complete Your Order",
+  subtitle: "You're one step away from farm-fresh microgreens!",
   customerInfoTitle: "Customer Information",
   shippingInfoTitle: "Delivery Address",
   paymentInfoTitle: "Payment Method",
@@ -1091,19 +1179,19 @@ export const checkoutConfig: CheckoutConfig = {
     city: "City",
     state: "State",
     zip: "ZIP Code",
-    deliveryDate: "Preferred Delivery Date",
+    //deliveryDate: "Preferred Delivery Date",
     specialInstructions: "Special Delivery Instructions",
   },
   placeholders: {
     firstName: "John",
     lastName: "Smith",
     email: "john@example.com",
-    phone: "(503) 555-0123",
+    phone: "7090200659",
     address: "123 Main Street",
-    city: "Portland",
-    state: "Oregon",
-    zip: "97201",
-    specialInstructions: "Gate code, delivery preferences, etc.",
+    city: "Bangalore",
+    state: "Karnataka",
+    zip: "560011",
+    specialInstructions: "Land mark, delivery preferences, etc.",
   },
 };
 
