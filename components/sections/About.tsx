@@ -121,7 +121,7 @@ export default function About() {
                       <div key={event.year} className="relative flex flex-col items-center flex-shrink-0 min-w-[70px]">
                         <div className="w-2.5 h-2.5 rounded-full bg-page border-2 border-gold-500 z-10" />
                         <span className="font-serif text-sm text-gold-500 mt-2">{event.year}</span>
-                        <span className="text-[11px] text-white/60 mt-0.5 text-center whitespace-nowrap">{event.event}</span>
+                        <span className="text-[11px] text-white/60 mt-0.5 text-center break-words">{event.event}</span>
                       </div>
                     ))}
                   </div>
