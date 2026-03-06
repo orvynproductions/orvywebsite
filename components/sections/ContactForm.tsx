@@ -13,7 +13,7 @@ export default function ContactForm() {
     name: '',
     email: '',
     phone: '',
-    visitDate: '',
+    //visitDate: '',
     visitors: '',
     message: '',
   });
@@ -57,7 +57,7 @@ export default function ContactForm() {
           name: '',
           email: '',
           phone: '',
-          visitDate: '',
+          //visitDate: '',
           visitors: '',
           message: '',
         });
@@ -185,7 +185,7 @@ export default function ContactForm() {
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:border-gold-500 transition-colors"
                     />
                   </div>
-                  <div>
+                  {/* <div>
                     <label className="block text-white/70 text-sm mb-2">
                       {contactFormConfig.form.visitDateLabel}
                     </label>
@@ -196,7 +196,7 @@ export default function ContactForm() {
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:border-gold-500 transition-colors"
                     />
-                  </div>
+                  </div> */}
                 </div>
 
                 <div>

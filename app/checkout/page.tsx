@@ -387,6 +387,15 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
+ <div className="mb-6 p-3 bg-white/5 border border-white/10 rounded-lg">
+  <p className="text-gold-500 text-sm font-medium">
+    Harvested Fresh for Your Order
+  </p>
+  <p className="text-white/60 text-xs mt-1">
+    Your microgreens are harvested fresh and deliver them as soon as they’re ready.
+  </p>
+</div>
+
               <div className="border-t border-white/10 pt-4 space-y-2">
                 <div className="flex justify-between text-white/60 text-sm">
                   <span>{cartConfig.subtotalText}</span>
