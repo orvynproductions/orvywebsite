@@ -311,7 +311,7 @@ export default function AdminDashboardPage() {
                               <div className="space-y-2 text-sm">
                                 <p className="text-white/60">{order.address}</p>
                                 <p className="text-white/60">{order.city}, {order.state} {order.zip}</p>
-                                <p className="text-white/60"><span className="text-white/40">Delivery Date:</span> {order.deliveryDate}</p>
+                                
                                 {order.specialInstructions && (
                                   <p className="text-white/60"><span className="text-white/40">Notes:</span> {order.specialInstructions}</p>
                                 )}

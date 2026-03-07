@@ -22,7 +22,7 @@ export default function CheckoutPage() {
     city: '',
     state: '',
     zip: '',
-    deliveryDate: '',
+    
     specialInstructions: '',
   });
 
@@ -59,7 +59,7 @@ export default function CheckoutPage() {
       state: formData.state,
       zip: formData.zip,
 
-      delivery_date: formData.deliveryDate,
+      
       special_instructions: formData.specialInstructions,
 
       items: orderItems,
@@ -90,7 +90,7 @@ export default function CheckoutPage() {
       city: formData.city,
       state: formData.state,
       zip: formData.zip,
-      deliveryDate: formData.deliveryDate,
+      
       specialInstructions: formData.specialInstructions,
       items: orderItems,
       subtotal: totalPrice,
@@ -299,18 +299,7 @@ export default function CheckoutPage() {
                       />
                     </div>
                   </div>
-                  <div>
-                    <label className="block text-white/60 text-sm mb-2">{checkoutConfig.fields.deliveryDate}</label>
-                    <input
-                      type="date"
-                      name="deliveryDate"
-                      value={formData.deliveryDate}
-                      onChange={handleInputChange}
-                      required
-                      min={new Date().toISOString().split('T')[0]}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:border-gold-500 transition-colors"
-                    />
-                  </div>
+                  
                   <div>
                     <label className="block text-white/60 text-sm mb-2">{checkoutConfig.fields.specialInstructions}</label>
                     <textarea
