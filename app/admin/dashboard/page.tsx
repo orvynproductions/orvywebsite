@@ -305,7 +305,7 @@ export default function AdminDashboardPage() {
                               </div>
                             </div>
 
-                            {/* Delivery Info */}
+                            {/* Delivery Info
                             <div>
                               <h4 className="text-white font-medium mb-3">Delivery Information</h4>
                               <div className="space-y-2 text-sm">
@@ -316,7 +316,7 @@ export default function AdminDashboardPage() {
                                   <p className="text-white/60"><span className="text-white/40">Notes:</span> {order.specialInstructions}</p>
                                 )}
                               </div>
-                            </div>
+                            </div> */}
                           </div>
 
                           {/* Order Items */}
