@@ -9,7 +9,7 @@ import { useOrders } from '@/contexts/OrdersContext';
 import { checkoutConfig, cartConfig } from '@/lib/config';
 
 export default function CheckoutPage() {
-  const { items, totalPrice, clearCart } = useCart();
+  const { items, totalPrice, clearCart, updateQuantity } = useCart();
   const { addOrder } = useOrders();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -365,14 +365,38 @@ export default function CheckoutPage() {
                         className="object-contain p-2"
                       />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-white text-sm font-medium truncate">{item.name}</h4>
-                      <p className="text-white/50 text-xs">{item.unit} × {item.quantity}</p>
+                   <div className="flex-1 min-w-0">
+                        
+                        <h4 className="text-white text-sm font-medium truncate">{item.name}</h4>
+
+                         <div className="flex items-center gap-2 text-xs text-white/50">
+                          <span>{item.unit}</span>
+
+                          <button
+                          type="button"
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="px-2 py-0.5 bg-white/10 rounded"
+                            >
+                          −
+                          </button>
+
+                         <span className="text-white">{item.quantity}</span>
+
+                        <button
+                       type="button"
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                       className="px-2 py-0.5 bg-white/10 rounded"
+                                >
+                               +
+                           </button>
+                            </div>
+
+                           </div>
+
+                            <span className="text-gold-500 font-medium">
+                            ₹{(item.price * item.quantity).toFixed(2)}
+                        </span>
                     </div>
-                    <span className="text-gold-500 font-medium">
-                      ₹{(item.price * item.quantity).toFixed(2)}
-                    </span>
-                  </div>
                 ))}
               </div>
 

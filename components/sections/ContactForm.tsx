@@ -118,10 +118,26 @@ export default function ContactForm() {
                     <div className="w-12 h-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
                       {IconComponent && <IconComponent className="w-5 h-5 text-gold-500" />}
                     </div>
-                    <div>
-                      <p className="text-gold-500 text-sm mb-1">{item.label}</p>
-                      <p className="text-white font-medium">{item.value}</p>
-                      <p className="text-white/50 text-sm">{item.subtext}</p>
+                   <div>
+                   
+                    <p className="text-gold-500 text-sm mb-1">{item.label}</p>
+
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                       className="block cursor-pointer hover:text-gold-500 active:text-gold-500 underline-offset-4 hover:underline transition-colors"
+>
+                           <p className="text-white font-medium">{item.value}</p>
+                           <p className="text-white/50 text-sm">{item.subtext}</p>
+                            </a>
+                           ) : (
+                           <>
+                          <p className="text-white font-medium">{item.value}</p>
+                          <p className="text-white/50 text-sm">{item.subtext}</p>
+                        </>
+                        )}
                     </div>
                   </div>
                 );

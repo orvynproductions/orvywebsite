@@ -59,7 +59,7 @@ const { data: dbData, error: dbError } = await supabase
       city: data.city,
       state: data.state,
       zip: data.zip,
-      delivery_date: data.delivery_date,
+      
       special_instructions: data.special_instructions || null,
       items: data.items,
       subtotal: data.subtotal,
@@ -174,7 +174,7 @@ ${data.city}, ${data.state} - ${data.zip}
 
 <tr>
 <td style="padding:10px;">Delivery Date</td>
-<td style="padding:10px;">${data.delivery_date}</td>
+<td style="padding:10px;">Our team will call you shortly to confirm the delivery date.</td>
 </tr>
 
 </table>
@@ -276,11 +276,11 @@ $${data.total}
 <br>
 
 <p>
-Delivery Date: <b>${data.delivery_date}</b>
+Delivery Date: <b>Our team will call you shortly to confirm the delivery date.</b>
 </p>
 
 <p>
-We will contact you soon.
+Thank you for your order — we’ll be in touch soon.
 </p>
 
 <br>

@@ -107,16 +107,16 @@ const handleSubscribe = async (e: React.FormEvent) => {
   {footerConfig.contactItems.map((item: any) => {
     const IconComponent = iconMap[item.icon];
     return (
-      <li key={item.icon} className="flex items-center gap-3 text-white/60 text-sm">
+      <li key={item.icon} className="flex items-center gap-3 text-white/60 text-sm py-1">
         {IconComponent && <IconComponent className="w-4 h-4 text-gold-500" />}
         {item.href ? (
           <a
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white/60 text-sm hover:text-gold-500 transition-colors"
-          >
-            {item.text}
+           href={item.href}
+           target={item.href.startsWith("http") ? "_blank" : undefined}
+           rel="noopener noreferrer"
+           className="text-white/60 text-sm hover:text-gold-500 active:text-gold-500 underline-offset-4 hover:underline transition-colors cursor-pointer"
+            >
+           {item.text}
           </a>
         ) : (
           <span>{item.text}</span>
