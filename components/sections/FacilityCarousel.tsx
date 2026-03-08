@@ -49,12 +49,13 @@ export default function FacilityCarousel() {
 
   // Auto-advance slides
   useEffect(() => {
-        const timer = setInterval(() => {
-        nextSlide();
-           }, 5000);
+  const timer = setInterval(() => {
+    setDirection('next');
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  }, 6000);
 
   return () => clearInterval(timer);
-}, []);
+}, [slides.length]);
 
   return (
     <section
