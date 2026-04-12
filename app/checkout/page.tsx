@@ -67,7 +67,7 @@ export default function CheckoutPage() {
     "Content-Type": "application/json"
   },
   body: JSON.stringify({
-    email: formData.email,
+    email: formData.email.trim().toLowerCase(),
     otp: otp
   })
 });
@@ -109,7 +109,7 @@ if (!data.success) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        email: formData.email,
+        email: formData.email.trim().toLowerCase(),
         otp: otp
       })
     });
@@ -135,7 +135,7 @@ if (!data.success) {
 
     const orderData = {
       customer_name: `${formData.firstName} ${formData.lastName}`,
-      email: formData.email,
+      email: formData.email.trim().toLowerCase(),
       phone: formData.phone,
       address: formData.address,
       city: formData.city,
@@ -166,7 +166,7 @@ if (!orderDataRes.success) {
 
     addOrder({
       customerName: `${formData.firstName} ${formData.lastName}`,
-      email: formData.email,
+      email: formData.email.trim().toLowerCase(),
       phone: formData.phone,
       address: formData.address,
       city: formData.city,
@@ -266,7 +266,7 @@ if (!orderDataRes.success) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        email: formData.email,
+        email: formData.email.trim().toLowerCase(),
         otp: otp
       })
     });

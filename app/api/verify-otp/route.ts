@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 export async function POST(req: Request) {
   try {
@@ -8,7 +13,7 @@ export async function POST(req: Request) {
     const cleanEmail = email.trim().toLowerCase();
 
     const { data, error } = await supabase
-      .from("otp_verification")
+      .from("otp_store")
       .select("*")
       .eq("email", cleanEmail)
       .single();
@@ -17,16 +22,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, message: "No OTP found" });
     }
 
+    // ❌ EXPIRED CHECK (THIS WAS WRONG BEFORE)
     if (Date.now() > data.expires_at) {
-      await supabase.from("otp_verification").delete().eq("email", cleanEmail);
+      await supabase.from("otp_store").delete().eq("email", cleanEmail);
       return NextResponse.json({ success: false, message: "OTP expired" });
     }
 
-    if (data.otp !== otp.trim()) {
+    // ❌ WRONG OTP
+    if (data.otp !== otp) {
       return NextResponse.json({ success: false, message: "Invalid OTP" });
     }
 
-    await supabase.from("otp_verification").delete().eq("email", cleanEmail);
+    // ✅ SUCCESS → delete OTP
+    await supabase.from("otp_store").delete().eq("email", cleanEmail);
 
     return NextResponse.json({ success: true });
 
