@@ -16,7 +16,7 @@ export default function CheckoutPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
   const [otp, setOtp] = useState('');
-  const [generatedOtp, setGeneratedOtp] = useState('');
+  
   const [timer, setTimer] = useState(30);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -35,44 +35,95 @@ export default function CheckoutPage() {
   const finalTotal = totalPrice + shipping;
 
   useEffect(() => {
-  if (showOtp && timer > 0) {
-    const t = setTimeout(() => setTimer(timer - 1), 1000);
-    return () => clearTimeout(t);
-  }
-}, [timer, showOtp]);
+  if (!showOtp) return;
+
+  const interval = setInterval(() => {
+    setTimer(prev => {
+      if (prev <= 1) {
+        clearInterval(interval);
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [showOtp]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e?: React.FormEvent) => {
-  if (e) e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-  const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
+  setIsSubmitting(true);
 
-  setGeneratedOtp(newOtp);
-  setShowOtp(true);
-  setTimer(30);
+  try {
+    const res = await fetch("/api/send-otp", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    email: formData.email
+  })
+});
 
-  console.log("OTP:", newOtp);
-  alert("Demo OTP: " + newOtp);
+const data = await res.json();
+
+if (!data.success) {
+  alert("Failed to send OTP");
+  setIsSubmitting(false);
+  return;
+}
+
+    setShowOtp(true);
+    setTimer(30);
+
+  } catch (err) {
+    console.log(err);
+    alert("Failed to send OTP");
+  }
+
+  setIsSubmitting(false);
 };
 
     
 
-    
+    const verifyOtpAndPlaceOrder = async () => {
 
-const verifyOtpAndPlaceOrder = async () => {
-  if (otp !== generatedOtp) {
-    alert("Invalid OTP");
+  if (!otp || otp.length < 4) {
+    alert("Enter OTP");
     return;
   }
 
-  setShowOtp(false);
   setIsSubmitting(true);
 
   try {
+    const verifyRes = await fetch("/api/verify-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        otp: otp
+      })
+    });
+
+    const verifyData = await verifyRes.json();
+
+    if (!verifyData.success) {
+      alert("Invalid OTP");
+      setIsSubmitting(false);
+      return;
+    }
+
+    setShowOtp(false);
+    setOtp('');
+
     const orderItems = items.map(item => ({
       id: item.id,
       name: item.name,
@@ -96,11 +147,21 @@ const verifyOtpAndPlaceOrder = async () => {
       total: finalTotal
     };
 
-    await fetch("/api/order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderData)
-    });
+    const orderRes = await fetch("/api/order", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(orderData)
+});
+
+const orderDataRes = await orderRes.json();
+
+if (!orderDataRes.success) {
+  alert("Order failed");
+  setIsSubmitting(false);
+  return;
+}
 
     addOrder({
       customerName: `${formData.firstName} ${formData.lastName}`,
@@ -127,6 +188,7 @@ const verifyOtpAndPlaceOrder = async () => {
 
   setIsSubmitting(false);
 };
+
 
   if (isSuccess) {
     return (
@@ -192,8 +254,38 @@ const verifyOtpAndPlaceOrder = async () => {
       </button>
 
       <button
-        disabled={timer > 0}
-        onClick={handleSubmit}
+        disabled={timer > 0 || isSubmitting}
+        onClick={async () => {
+  setIsSubmitting(true);
+
+  try {
+    const res = await fetch("/api/send-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: formData.email
+      })
+    });
+
+    const data = await res.json();
+
+    if (!data.success) {
+      alert("Failed to resend OTP");
+      setIsSubmitting(false);
+      return;
+    }
+
+    setTimer(30);
+
+  } catch (err) {
+    console.log(err);
+    alert("Failed to resend OTP");
+  }
+
+  setIsSubmitting(false);
+}}
         className="w-full text-sm text-white/60"
       >
         {timer > 0 ? `Resend in ${timer}s` : "Resend OTP"}
