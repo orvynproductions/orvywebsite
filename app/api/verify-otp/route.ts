@@ -1,33 +1,32 @@
 import { NextResponse } from "next/server";
-import { getOtp, deleteOtp } from "@/lib/otpStore";
+import { supabase } from "@/lib/supabase";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const { email, otp } = await req.json();
 
-    const email = (body.email || "").trim().toLowerCase();
-    const otp = (body.otp || "").trim();
+    const cleanEmail = email.trim().toLowerCase();
 
-    if (!email || !otp) {
-      return NextResponse.json({ success: false, message: "Missing data" });
-    }
+    const { data, error } = await supabase
+      .from("otp_verification")
+      .select("*")
+      .eq("email", cleanEmail)
+      .single();
 
-    const record = getOtp(email);
-
-    if (!record) {
+    if (error || !data) {
       return NextResponse.json({ success: false, message: "No OTP found" });
     }
 
-    if (Date.now() > record.expiresAt) {
-      deleteOtp(email);
+    if (Date.now() > data.expires_at) {
+      await supabase.from("otp_verification").delete().eq("email", cleanEmail);
       return NextResponse.json({ success: false, message: "OTP expired" });
     }
 
-    if (record.otp !== otp) {
+    if (data.otp !== otp.trim()) {
       return NextResponse.json({ success: false, message: "Invalid OTP" });
     }
 
-    deleteOtp(email);
+    await supabase.from("otp_verification").delete().eq("email", cleanEmail);
 
     return NextResponse.json({ success: true });
 
