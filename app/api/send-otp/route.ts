@@ -36,6 +36,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false });
     }
 
+console.log(process.env.GMAIL_USER, process.env.GMAIL_APP_PASSWORD ? "OK" : "MISSING");
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
