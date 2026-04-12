@@ -38,6 +38,9 @@ if (result.error) {
   return NextResponse.json({ success: false, message: "DB insert failed" });
 }
 
+console.log("SUPABASE_URL:", process.env.SUPABASE_URL);
+console.log("SUPABASE_KEY_EXISTS:", !!process.env.SUPABASE_SERVICE_ROLE_KEY);
+
 console.log(process.env.GMAIL_USER, process.env.GMAIL_APP_PASSWORD ? "OK" : "MISSING");
 
     const transporter = nodemailer.createTransport({
