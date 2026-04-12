@@ -2,18 +2,9 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { setOtp } from "@/lib/otpStore";
 
-const apiKey = process.env.RESEND_API_KEY;
-
-if (!apiKey) {
-  console.error("Missing RESEND_API_KEY");
-}
-
-const resend = new Resend(apiKey || "");
-
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const email = body.email;
+    const { email } = await req.json();
 
     if (!email) {
       return NextResponse.json({
@@ -22,12 +13,8 @@ export async function POST(req: Request) {
       });
     }
 
-    if (!apiKey) {
-      return NextResponse.json({
-        success: false,
-        message: "Email service not configured",
-      });
-    }
+    // 🔥 IMPORTANT: create inside function (Vercel-safe)
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -38,14 +25,14 @@ export async function POST(req: Request) {
       to: email,
       subject: "Your OTP - Orvyn Microgreens",
       html: `
-        <div style="background:#0b0b0b;padding:40px 20px;font-family:Arial">
+        <div style="background:#0b0b0b;padding:40px;font-family:Arial">
           <div style="max-width:500px;margin:auto;background:#111;padding:30px;border-radius:12px;text-align:center">
 
             <img src="https://orvywebsite.vercel.app/logo.png" style="width:120px;margin-bottom:20px"/>
 
-            <h2 style="color:white">Verify Your Email</h2>
+            <h2 style="color:#fff">Verify Your Email</h2>
 
-            <p style="color:#aaa">Use this OTP</p>
+            <p style="color:#aaa">Your OTP code</p>
 
             <div style="margin:20px 0;padding:15px;border:1px solid #d4af37;border-radius:8px">
               <span style="font-size:30px;color:#d4af37;letter-spacing:6px">${otp}</span>
@@ -59,8 +46,10 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true });
+
   } catch (err) {
     console.error("OTP ERROR:", err);
+
     return NextResponse.json({
       success: false,
       message: "Server error",
