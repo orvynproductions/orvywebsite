@@ -1,37 +1,31 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 import { setOtp } from "@/lib/otpStore";
+import { transporter } from "@/lib/mailer";
 
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
 
     if (!email) {
-      return NextResponse.json({
-        success: false,
-        message: "Email required",
-      });
+      return NextResponse.json({ success: false, message: "Email required" });
     }
 
-    // 🔥 IMPORTANT: create inside function (Vercel-safe)
-    const resend = new Resend(process.env.RESEND_API_KEY!);
-
+    // OTP generate
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
+    // store OTP
     setOtp(email, otp);
 
-    await resend.emails.send({
-      from: "Orvyn <onboarding@resend.dev>",
+    // send email via Gmail SMTP
+    await transporter.sendMail({
+      from: `"Orvyn Microgreens" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Your OTP - Orvyn Microgreens",
       html: `
         <div style="background:#0b0b0b;padding:40px;font-family:Arial">
           <div style="max-width:500px;margin:auto;background:#111;padding:30px;border-radius:12px;text-align:center">
 
-            <img src="https://orvywebsite.vercel.app/logo.png" style="width:120px;margin-bottom:20px"/>
-
-            <h2 style="color:#fff">Verify Your Email</h2>
-
+            <h2 style="color:white">Verify Your Email</h2>
             <p style="color:#aaa">Your OTP code</p>
 
             <div style="margin:20px 0;padding:15px;border:1px solid #d4af37;border-radius:8px">
@@ -49,10 +43,6 @@ export async function POST(req: Request) {
 
   } catch (err) {
     console.error("OTP ERROR:", err);
-
-    return NextResponse.json({
-      success: false,
-      message: "Server error",
-    });
+    return NextResponse.json({ success: false });
   }
 }
