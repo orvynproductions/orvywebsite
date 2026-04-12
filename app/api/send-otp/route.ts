@@ -1,44 +1,29 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
+import nodemailer from "nodemailer";
 
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const email = body?.email;
+    const { email } = await req.json();
 
     if (!email) {
-      return NextResponse.json({
-        success: false,
-        message: "Email required",
-      });
+      return NextResponse.json({ success: false, message: "Email required" });
     }
 
     const cleanEmail = email.trim().toLowerCase();
 
-    // ✅ ENV SAFETY CHECK
-    const apiKey = process.env.RESEND_API_KEY;
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabase = createClient(
+      process.env.SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
 
-    if (!apiKey || !supabaseUrl || !supabaseServiceKey) {
-      console.log("Missing env vars");
-      return NextResponse.json({
-        success: false,
-        message: "Server configuration error",
-      });
-    }
-
-    const resend = new Resend(apiKey);
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-    // ✅ OTP GENERATION
+    // OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = Date.now() + 90 * 1000; // 1.5 min
+    const expiresAt = Date.now() + 90 * 1000;
 
-    // ✅ STORE OTP (UPSERT = prevents multi-user issues)
+    // Store OTP
     const { error } = await supabase.from("otp_store").upsert({
       email: cleanEmail,
       otp,
@@ -47,59 +32,55 @@ export async function POST(req: Request) {
 
     if (error) {
       console.log("SUPABASE ERROR:", error);
-      return NextResponse.json({
-        success: false,
-        message: "Failed to store OTP",
-      });
+      return NextResponse.json({ success: false });
     }
 
-    // ✅ SEND EMAIL
-    const { error: emailError } = await resend.emails.send({
-      from: "Orvyn <onboarding@resend.dev>",
-      to: cleanEmail,
-      subject: "Your OTP - Orvyn Microgreens",
-      html: `
-        <div style="background:#0b0b0b;padding:40px;font-family:Arial,sans-serif">
-          <div style="max-width:500px;margin:auto;background:#111;padding:30px;border-radius:12px;text-align:center;border:1px solid #222">
-
-            <h2 style="color:#ffffff;margin-bottom:10px">
-              Verify Your Email
-            </h2>
-
-            <p style="color:#aaa;font-size:14px;margin-bottom:20px">
-              Use this OTP to continue your order
-            </p>
-
-            <div style="margin:20px 0;padding:15px;border:1px solid #d4af37;border-radius:8px">
-              <span style="font-size:32px;color:#d4af37;letter-spacing:6px;font-weight:bold">
-                ${otp}
-              </span>
-            </div>
-
-            <p style="color:#777;font-size:12px">
-              Expires in 1.5 minutes
-            </p>
-
-          </div>
-        </div>
-      `,
+    // Gmail SMTP setup
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, ""),
+      },
     });
 
-    if (emailError) {
-      console.log("EMAIL ERROR:", emailError);
-      return NextResponse.json({
-        success: false,
-        message: "Failed to send email",
-      });
-    }
+    // Email HTML
+    const html = `
+    <div style="background:#0b0b0b;padding:40px;font-family:Arial,sans-serif">
+      <div style="max-width:500px;margin:auto;background:#111;padding:30px;border-radius:12px;text-align:center;border:1px solid #222">
+
+        <img src="https://orvywebsite.vercel.app/logo.png" style="width:120px;margin-bottom:20px"/>
+
+        <h2 style="color:#ffffff">Verify Your Email</h2>
+
+        <p style="color:#aaa">Use this OTP to continue your order</p>
+
+        <div style="margin:20px 0;padding:15px;border:1px solid #d4af37;border-radius:8px">
+          <span style="font-size:30px;color:#d4af37;letter-spacing:6px;font-weight:bold">
+            ${otp}
+          </span>
+        </div>
+
+        <p style="color:#777;font-size:12px">
+          This OTP expires in 1.5 minutes
+        </p>
+
+      </div>
+    </div>
+    `;
+
+    // Send email
+    await transporter.sendMail({
+      from: `"Orvyn Microgreens" <${process.env.GMAIL_USER}>`,
+      to: cleanEmail,
+      subject: "Your OTP - Orvyn Microgreens",
+      html,
+    });
 
     return NextResponse.json({ success: true });
 
   } catch (err) {
     console.log("OTP ERROR:", err);
-    return NextResponse.json({
-      success: false,
-      message: "Server error",
-    });
+    return NextResponse.json({ success: false });
   }
 }
