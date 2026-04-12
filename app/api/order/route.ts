@@ -102,7 +102,7 @@ if (dbError || !dbData) {
 <tr>
 <td style="padding:10px;border-bottom:1px solid #eee;">${item.name}</td>
 <td style="padding:10px;border-bottom:1px solid #eee;text-align:center;">${item.quantity}</td>
-<td style="padding:10px;border-bottom:1px solid #eee;text-align:right;">$${item.price}</td>
+<td style="padding:10px;border-bottom:1px solid #eee;text-align:right;">₹${item.price}</td>
 </tr>
 
 `).join("");
@@ -201,7 +201,7 @@ ${itemsHtml}
 <td style="padding:12px;">Total</td>
 <td></td>
 <td style="padding:12px;text-align:right;">
-$${data.total}
+₹${data.total}
 </td>
 </tr>
 

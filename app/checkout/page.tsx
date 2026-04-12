@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Check, Leaf, CreditCard, Truck } from 'lucide-react';
@@ -8,11 +8,16 @@ import { useCart } from '@/contexts/CartContext';
 import { useOrders } from '@/contexts/OrdersContext';
 import { checkoutConfig, cartConfig } from '@/lib/config';
 
+
 export default function CheckoutPage() {
   const { items, totalPrice, clearCart, updateQuantity } = useCart();
   const { addOrder } = useOrders();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showOtp, setShowOtp] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [generatedOtp, setGeneratedOtp] = useState('');
+  const [timer, setTimer] = useState(30);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -29,17 +34,45 @@ export default function CheckoutPage() {
   const shipping = 0;
   const finalTotal = totalPrice + shipping;
 
+  useEffect(() => {
+  if (showOtp && timer > 0) {
+    const t = setTimeout(() => setTimer(timer - 1), 1000);
+    return () => clearTimeout(t);
+  }
+}, [timer, showOtp]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+  if (e) e.preventDefault();
+
+  const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
+
+  setGeneratedOtp(newOtp);
+  setShowOtp(true);
+  setTimer(30);
+
+  console.log("OTP:", newOtp);
+  alert("Demo OTP: " + newOtp);
+};
+
+    
+
+    
+
+const verifyOtpAndPlaceOrder = async () => {
+  if (otp !== generatedOtp) {
+    alert("Invalid OTP");
+    return;
+  }
+
+  setShowOtp(false);
   setIsSubmitting(true);
 
   try {
-
     const orderItems = items.map(item => ({
       id: item.id,
       name: item.name,
@@ -49,37 +82,24 @@ export default function CheckoutPage() {
     }));
 
     const orderData = {
-
       customer_name: `${formData.firstName} ${formData.lastName}`,
       email: formData.email,
       phone: formData.phone,
-
       address: formData.address,
       city: formData.city,
       state: formData.state,
       zip: formData.zip,
-
-      
       special_instructions: formData.specialInstructions,
-
       items: orderItems,
-
       subtotal: totalPrice,
       shipping: "Free",
       total: finalTotal
-
     };
 
     await fetch("/api/order", {
-
       method: "POST",
-
-      headers: {
-        "Content-Type": "application/json"
-      },
-
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData)
-
     });
 
     addOrder({
@@ -90,7 +110,6 @@ export default function CheckoutPage() {
       city: formData.city,
       state: formData.state,
       zip: formData.zip,
-      
       specialInstructions: formData.specialInstructions,
       items: orderItems,
       subtotal: totalPrice,
@@ -99,18 +118,15 @@ export default function CheckoutPage() {
     });
 
     clearCart();
-
     setIsSuccess(true);
 
-  } catch(err) {
-
+  } catch (err) {
     console.log(err);
     alert("Order failed");
-
   }
 
-         setIsSubmitting(false);
-  };
+  setIsSubmitting(false);
+};
 
   if (isSuccess) {
     return (
@@ -154,6 +170,38 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-page pt-24 pb-16">
+      {showOtp && (
+  <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+    <div className="bg-page border border-white/10 p-6 rounded-xl w-[90%] max-w-sm">
+
+      <h2 className="text-white text-xl mb-4 text-center">Verify OTP</h2>
+
+      <input
+        type="text"
+        value={otp}
+        onChange={(e) => setOtp(e.target.value)}
+        placeholder="Enter OTP"
+        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white mb-4"
+      />
+
+      <button
+        onClick={verifyOtpAndPlaceOrder}
+        className="w-full py-3 bg-gold-500 text-page rounded-lg font-semibold mb-3"
+      >
+        Verify & Place Order
+      </button>
+
+      <button
+        disabled={timer > 0}
+        onClick={handleSubmit}
+        className="w-full text-sm text-white/60"
+      >
+        {timer > 0 ? `Resend in ${timer}s` : "Resend OTP"}
+      </button>
+
+    </div>
+  </div>
+)}
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-40 bg-page/95 backdrop-blur-sm border-b border-white/10">
         <div className="container-custom h-16 flex items-center justify-between">
@@ -331,7 +379,7 @@ export default function CheckoutPage() {
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || showOtp}
                 className="w-full py-4 bg-gold-500 text-page rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-gold-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
