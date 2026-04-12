@@ -11,7 +11,16 @@ export const setOtp = (email: string, otp: string) => {
 };
 
 export const getOtp = (email: string) => {
-  return otpStore.get(email);
+  const data = otpStore.get(email);
+
+  if (!data) return undefined;
+
+  if (Date.now() > data.expiresAt) {
+    otpStore.delete(email);
+    return undefined;
+  }
+
+  return data;
 };
 
 export const deleteOtp = (email: string) => {
