@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     }
 
     // 🔥 IMPORTANT: create inside function (Vercel-safe)
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const resend = new Resend(process.env.RESEND_API_KEY!);
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
