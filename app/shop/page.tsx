@@ -46,7 +46,7 @@ export default function ShopPage() {
         <div className="container-custom h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Leaf className="w-6 h-6 text-gold-500" />
-            <span className="text-white font-serif text-lg">Orvyn Microgreens</span>
+            <span className="text-white font-serif text-lg">Orvyn Productions</span>
           </Link>
           
           <Link
