@@ -23,18 +23,20 @@ export async function POST(req: Request) {
     const expiresAt = Date.now() + 90 * 1000;
 
     // 🔥 UPSERT FIX (ensures overwrite always works correctly)
-    const { error } = await supabase.from("otp_store").upsert({
-      email: cleanEmail,
-      otp,
-      expires_at: expiresAt,
-    }, {
-      onConflict: "email"
-    });
+   const result = await supabase.from("otp_store").upsert({
+  email: cleanEmail,
+  otp,
+  expires_at: expiresAt,
+}, {
+  onConflict: "email"
+});
 
-    if (error) {
-      console.log("SUPABASE ERROR:", error);
-      return NextResponse.json({ success: false });
-    }
+console.log("SUPABASE RESULT:", result);
+
+if (result.error) {
+  console.log("SUPABASE ERROR:", result.error);
+  return NextResponse.json({ success: false, message: "DB insert failed" });
+}
 
 console.log(process.env.GMAIL_USER, process.env.GMAIL_APP_PASSWORD ? "OK" : "MISSING");
 
