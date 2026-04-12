@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       .from("otp_store")
       .select("*")
       .eq("email", cleanEmail)
-      .single();
+      .maybeSingle(); // 🔥 FIX: avoids crashes
 
     if (error || !data) {
       return NextResponse.json({ success: false, message: "No OTP found" });
