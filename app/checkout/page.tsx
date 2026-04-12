@@ -67,7 +67,8 @@ export default function CheckoutPage() {
     "Content-Type": "application/json"
   },
   body: JSON.stringify({
-    email: formData.email
+    email: formData.email,
+    otp: otp
   })
 });
 
@@ -265,7 +266,8 @@ if (!orderDataRes.success) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        email: formData.email
+        email: formData.email,
+        otp: otp
       })
     });
 

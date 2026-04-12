@@ -3,35 +3,36 @@ import { getOtp, deleteOtp } from "@/lib/otpStore";
 
 export async function POST(req: Request) {
   try {
-    const { email, otp } = await req.json();
+    const body = await req.json();
+
+    const email = (body.email || "").trim().toLowerCase();
+    const otp = (body.otp || "").trim();
+
+    if (!email || !otp) {
+      return NextResponse.json({ success: false, message: "Missing data" });
+    }
 
     const record = getOtp(email);
 
     if (!record) {
-      return NextResponse.json({
-        success: false,
-        message: "No OTP found or expired",
-      });
+      return NextResponse.json({ success: false, message: "No OTP found" });
     }
 
-    // wrong OTP
+    if (Date.now() > record.expiresAt) {
+      deleteOtp(email);
+      return NextResponse.json({ success: false, message: "OTP expired" });
+    }
+
     if (record.otp !== otp) {
-      return NextResponse.json({
-        success: false,
-        message: "Invalid OTP",
-      });
+      return NextResponse.json({ success: false, message: "Invalid OTP" });
     }
 
-    // success → delete OTP
     deleteOtp(email);
 
     return NextResponse.json({ success: true });
 
   } catch (err) {
     console.log(err);
-    return NextResponse.json({
-      success: false,
-      message: "Server error",
-    });
+    return NextResponse.json({ success: false });
   }
 }

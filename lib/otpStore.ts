@@ -3,26 +3,23 @@ type OtpData = {
   expiresAt: number;
 };
 
-const otpStore = new Map<string, OtpData>();
+declare global {
+  var otpStore: Map<string, OtpData> | undefined;
+}
+
+const store = globalThis.otpStore || new Map<string, OtpData>();
+globalThis.otpStore = store;
 
 export const setOtp = (email: string, otp: string) => {
-  const expiresAt = Date.now() + 90 * 1000; // 1.5 min
-  otpStore.set(email, { otp, expiresAt });
+  const key = email.trim().toLowerCase();
+  const expiresAt = Date.now() + 90 * 1000;
+  store.set(key, { otp, expiresAt });
 };
 
 export const getOtp = (email: string) => {
-  const data = otpStore.get(email);
-
-  if (!data) return undefined;
-
-  if (Date.now() > data.expiresAt) {
-    otpStore.delete(email);
-    return undefined;
-  }
-
-  return data;
+  return store.get(email.trim().toLowerCase());
 };
 
 export const deleteOtp = (email: string) => {
-  otpStore.delete(email);
+  store.delete(email.trim().toLowerCase());
 };
