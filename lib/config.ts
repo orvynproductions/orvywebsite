@@ -467,7 +467,9 @@ export const aboutConfig: AboutConfig = {
     //{ year: "2025", event: "First restaurant partnership signed" },
     { year: "2025", event: "Moved into a dedicated space to expand production capacity" },
     { year: "2025", event: "Launched home delivery service" },
-    //{ year: "2024", event: "Certified organic, serving 5,000+ customers" },
+    { year: "2026", event: "Handled increasing daily orders steadily" },
+    { year: "2026", event: "Strengthened our daily operations and workflow" },
+    
   ],
   tabs: [
     {
