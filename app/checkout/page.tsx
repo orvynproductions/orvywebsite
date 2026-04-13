@@ -16,6 +16,7 @@ export default function CheckoutPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
   const [otp, setOtp] = useState('');
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   
   const [timer, setTimer] = useState(30);
   const [formData, setFormData] = useState({
@@ -94,6 +95,12 @@ if (!data.success) {
     
 
     const verifyOtpAndPlaceOrder = async () => {
+
+// ✅ ADD THIS BLOCK (FIRST THING)
+  if (!acceptedTerms) {
+    alert("Please accept Terms of Service");
+    return;
+  }
 
   if (!otp || otp.length < 4) {
     alert("Enter OTP");
@@ -247,12 +254,28 @@ if (!orderDataRes.success) {
         className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white mb-4"
       />
 
+        <div className="flex items-start gap-2 mb-4">
+  <input
+    type="checkbox"
+    checked={acceptedTerms}
+    onChange={(e) => setAcceptedTerms(e.target.checked)}
+    className="mt-1"
+  />
+  <p className="text-xs text-white/60">
+    I agree to the{" "}
+    <Link href="/legal" className="text-gold-500 underline">
+      Terms of Service
+    </Link>
+  </p>
+</div>
+
       <button
-        onClick={verifyOtpAndPlaceOrder}
-        className="w-full py-3 bg-gold-500 text-page rounded-lg font-semibold mb-3"
-      >
-        Verify & Place Order
-      </button>
+  onClick={verifyOtpAndPlaceOrder}
+  disabled={!acceptedTerms || isSubmitting}
+  className="w-full py-3 bg-gold-500 text-page rounded-lg font-semibold mb-3 disabled:opacity-50 disabled:cursor-not-allowed"
+>
+  Verify & Place Order
+</button>
 
       <button
         disabled={timer > 0 || isSubmitting}
