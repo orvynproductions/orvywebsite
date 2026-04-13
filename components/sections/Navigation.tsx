@@ -132,7 +132,7 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden fixed inset-0 top-[72px] bg-black z-[9999] transition-all duration-500 ${
+        className={`lg:hidden fixed inset-0 top-[72px] bg-black z-[9999] isolate transition-all duration-500 ${
           isMobileMenuOpen
             ? 'opacity-100 visible'
             : 'opacity-0 invisible pointer-events-none'
