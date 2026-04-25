@@ -338,7 +338,7 @@ export const productShowcaseConfig: ProductShowcaseConfig = {
     },
     {
       id: "garlic",
-      name: "Garlic Microgreens",
+      name: "Garlic Chives",
       subtitle: "Strong & Aromatic",
       price: "₹12",
       image: "/images/garlic.png",
@@ -1090,7 +1090,7 @@ export const shopConfig: ShopConfig = {
 },
 {
   id: "garlic-50g",
-  name: "Garlic Microgreens",
+  name: "Garlic Chives",
   description: "Strong, aromatic greens with intense garlic flavor",
   price: 12, // fix this
   unit: "50g",
