@@ -299,7 +299,7 @@ export const productShowcaseConfig: ProductShowcaseConfig = {
       name: "Coriander Microgreens",
       subtitle: "Fresh & Citrusy",
       price: "₹67",
-      image: "/images/coriander.jpg",
+      image: "/images/coriander.png",
       filter: "",
       glowColor: "bg-green-500/20",
       description: "Fresh herb with a citrus note, perfect for garnishing Indian dishes.",
@@ -386,7 +386,7 @@ export const facilityCarouselConfig: FacilityCarouselConfig = {
   locationTag: "K.Narayanpura, Bangalore",
   slides: [
     {
-      image: "/images/growing-room.jpg",
+      image: "/images/office.png",
       title: "Carefully Managed",
       title2: "Growing Space",
       area: "Dedicated",
@@ -402,7 +402,7 @@ export const facilityCarouselConfig: FacilityCarouselConfig = {
       description: "Every tray is carefully monitored and hand-harvested at peak nutrition. Our team ensures only the finest greens make it to your table.",
     },
     {
-      image: "/images/packaging.jpg",
+      image: "/images/harvestpack.jpg",
       title: "100%",
       title2: "Organic Growing",
       area: "Non-GMO",
