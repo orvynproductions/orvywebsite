@@ -402,7 +402,7 @@ export const facilityCarouselConfig: FacilityCarouselConfig = {
       description: "Every tray is carefully monitored and hand-harvested at peak nutrition. Our team ensures only the finest greens make it to your table.",
     },
     {
-      image: "/images/harvestpack.jpg",
+      image: "/images/harvestpack.png",
       title: "100%",
       title2: "Organic Growing",
       area: "Non-GMO",
