@@ -980,7 +980,7 @@ export const shopConfig: ShopConfig = {
     description: "Fresh, citrusy greens ideal for Indian dishes",
     price: 67,
     unit: "50g",
-    image: "/images/coriander.jpg",
+    image: "/images/coriander.png",
     category: "Microgreens",
     inStock: true,
     nutritionHighlights: ["Vitamin C", "Antioxidants", "Fresh Flavor"],
